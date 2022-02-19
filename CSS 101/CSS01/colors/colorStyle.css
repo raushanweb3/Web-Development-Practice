@@ -1,0 +1,41 @@
+h2+button {
+    background-color: rebeccapurple;
+    color: seashell;
+}
+
+input {
+    font-size: 20px;
+}
+
+input[type="password"] {   /* do remember the spaccing */
+    color: red;
+}
+
+.post button:hover {
+    background-color: red;
+}
+
+button:active {
+    background-color: royalblue;
+}
+
+.post:nth-of-type(2n) {
+    background-color: seashell;
+}
+
+h2::first-letter {
+    font-size: 30px;
+}
+
+p::selection {
+    background-color: seashell;
+}
+
+p span {
+    background-color: skyblue;
+    border: 1px solid black;
+    /* padding: 100px; */
+    width: 200px;
+    margin: 100px;
+    /* display: inline-block; */
+}

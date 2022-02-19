@@ -1,0 +1,64 @@
+''''''''''''''''''''''Installation''''''''''''''''''''''
+- Windows: follow this https://www.youtube.com/watch?v=MCpbfYvvoPY
+
+''''''''''''''''''''''Commands''''''''''''''''''''''
+> mongod - starting mongoDB
+> mongo - starting mongoDB Shell
+> db - shows working database
+> show dbs - show all databases
+> use <database_name> - make a new database
+> show collections - shows all collections (like a container for similar data)
+> db.<collection_name>.insertOne() or .insertMany() or insert()
+> db.dogs.find - finding collections
+> db.dogs.find({<criteria>: <filter>}) - finding with a particular criteria
+> db.dogs.updateOne({name: 'Charlie'}, {$set: { <field1>: <updatedvalue> }}) - updating a collection --------> updateMany can also be used
+> db.dogs.deleteMany() or deteleOne() -->> similar to update command
+> db.dogs.deleteMany({}) -->> to delete everything in a collection
+Additional mongoDB commands
+> db.<collection_name>.find({'<parent_object>.<child_object_filter_criteria>'})
+> In the mongoDB docs - goto Reference>Operators>Query and Projection Operations to find more useful commands like greater than, less than, etc
+
+''''''''''''''''''''''''''Terminologies''''''''''''''''''''''''''
+> _id - Primary key --> automatically generated object id by MongoDB (can be customized)
+
+''''''''''''''''''''''Json and BSON''''''''''''''''''''''
+
+> BSON (Binary Json) is used as the file format for MongoDB
+> JSON is slower than BSON and can save only a few data types
+
+''''''''''''''''''''''''''Mongoose''''''''''''''''''''''''''
+
+> Mongoose is an Object Data/Document Mapper (ODM)
+> Connects or maps data that comes from or to mongoDB into JavaScript
+> Helps to build more complicated queries
+> makes working with mongo easier
+> Always check docs for the latest commands
+Mongoose Models
+> JS classes that represents data in mongo database
+> Running a mongoose file
+>  > just run node index.js in javascript (normal terminal)
+>  > check if the database was updated (db.<collection_name>.find() in mongo shell)
+>  > we can also do node to enter node REPL and then load the index.js using ---> .load index.js and then we can see individual objects and save it to database using <object name>.save()
+Schema ---> 
+> Mapping of different collection keys from Mongo to different types in JS. for example - object1 = string, object2 = boolean, etc
+> model name for using schema should start with capital letter and should be singular
+> Mongoose will take that and make it plural and lowercase
+
+> finding data inside node >>>> .load index.js
+>     Movie.findOne({year: {$lt: 1990}}).then(data => console.log(data))
+
+> Static methods vs Instance methodas
+>   They should be created before creating the model 
+>       Instance - 
+>           Can be called using 'this'
+>           Lives on an instance of the model
+>       Static - 
+>           Lives on the model itself and not on the instance
+>           We don't have access to 'this' method
+
+
+
+'''''''''''''''''''''''''''''Middleware'''''''''''''''''''''''''''''
+> The ability to run code before or after something happens. like after adding something or deleting accounts, etc
+> .pre and .post -----> types of middleware
+

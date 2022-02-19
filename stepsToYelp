@@ -1,0 +1,9 @@
+> create YelpCamp directory
+> ''''npm init'''' to create package.json
+> ''''npm i express ejs mongoose'''' to install express, mongoose, and ejs
+> create app.js ----> main file
+> Create views directory
+> Add a test ejs file to views directory and see if the things are linked
+> Create ''''models'''' directory
+> Setup mongoose model
+> install '''''''''''npm i method-override''''''''''' for put / patch / delete requests

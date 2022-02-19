@@ -1,0 +1,146 @@
+app.use ===>>> used to post response for every single response
+
+app.listen ===>>> 
+
+app.get ===>>> expects path and a callback function which runs whenever the request comes in matching the path
+
+app.get('*', (req,res) => { //for sending a default response to every GET request})
+
+res.send ===>>> only one response and the code exits
+
+res.post ===>>> for posting request
+
+*****************************
+
+For Autostarting the server we use nodemon
+
+*****************************
+
+For templating we can use the following and more:
+- EJS (using this for this course)
+- Handlebars
+- Jade
+- Interpolation
+- Nunjucks
+
+*************************
+EJS
+*************************
+
+- We use app.set('view engine', 'ejs'); in the index.js file for using EJS
+- create a 'views' directory, which is used by the EJS
+- views directory will contain all the EJS files
+- If the server is not started from the directory containing the views directory, it will show an error (Lec 342 - 1:46 | Web dev bootcamp udemy). Hence, it's a best practice to set up the path for views directory by adding the following:
+        const path = require('path');
+        app.set('views', path.join(__dirname, '/views'))
+
+- Any function, variable, method can be passed on to the EJS template if we call the function in our index.js file and refer to that function in the ejs file
+        for example:
+        - adding this to the index.js 
+        app.get('/', (req, res) => {
+                const randomNum = Math.floor(Math.random() * 5 + 1);
+                res.render('home', { randomNum })
+                res.render('home', { num: randomNum }) // changing variable name
+        })
+        - and then the home.ejs file includes:
+        <h1>EJS file heading <%= randomNum %></h1>
+        <h1>EJS file heading <%= num %></h1> <!-- If variable is defined -->
+
+- <% someJavaScriptValue %> ===>>> evaluates logic
+- <%= someJavaScriptValue %> ===>>> embed and renders value directly
+
+- Using "req.params"
+        
+        Syntax: 
+        app.get('/r/:subreddit', (req,res) => {
+                const { subreddit } = req.params;
+                res.render('notfound', { subreddit});
+        })
+
+        Explanation:
+        In the above explanation whatever parameter is entered by the user in place of subreddit will be passed on to the subreddit object as defined by the line ----> const { subreddit } = req.params;
+        eg:
+        localhost:3000/r/chicken ----> chicken === subreddit in this case
+
+        Detailed explantion:
+        https://www.geeksforgeeks.org/express-js-req-params-property/
+
+
+--------- USING STATIC FILES IN EJS -----------
+
+- app.use(express.static('public')) // public is the name of the directory containing our css, JS or HTML files
+
+- or better use:
+        app.use(express.static(path.join(__dirname, '/public')))  // for running the file from any directory
+
+--------------------Partials--------------------
+
+- partials can help avoid the repetition and one portion of HTML can be used for all ejs files
+- use the following syntax:
+        <%- include('partials/head') %>
+
+
+------------------------GET VS POST REQUESTS------------------------
+GET:
+        - Used to retrieve information
+        - Data is sent via query string (all data as treated as string)
+        - Information is plainly visible in the URL!
+        - Limited amount of data can be sent
+
+POST:
+        - Used to post data to the server
+        - Used to write/create/update
+        - Data is sent via request body, not a query string!
+        - Can send any sort of data (JSON!)
+        - parsing req.body command ----->>>
+                app.use(express.urlencoded({extended: true}));
+
+Using express to parse req body in "(req,req), () => {}" section
+        - app.use(express.urlencoded({ extended: true }))
+        - use the above line to parse text data
+        - for parsing JSON data, also use the following:
+        - app.use(express.json())
+
+
+----------------------REST----------------------
+
+REST = REpresentational State Transfer
+
+- Complicated definition: REST is an 'architectural style for distributed hypermedia systems'
+- Understandable definition: It is basically a set of guidelines for how a client + server should communicate and perform CRUD (Create Read Update Delete/Destroy) operations on a given resource.
+- The main idea of REST is treating data on the server-side as resources that can be CRUDed
+- The most common way of approaching REST is in formatting the URLs and HTTP verbs in your applications.
+
+-----------------------UUID-----------------------
+Universly Unique ID
+- gives unique ids
+- have to install
+- check version from docs. currently using version 4
+- to include version 4, currently the code is as follows:
+        const {v4: uuidv4} = require('uuid');
+        uuidv4() // to execute and generate a uuid
+
+----------------------------PATCH----------------------------
+- Patch request is not recognized by the browser
+- the browser only recognizes get and post request
+- hence, we follow a work around that
+
+- install method-override to bypass this issue
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

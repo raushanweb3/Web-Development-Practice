@@ -1,0 +1,41 @@
+body {
+    margin: 0;
+}
+
+h1 {
+    margin-left: calc(10%/6);
+    font-family: Roboto;
+    font-size: 2em;
+    letter-spacing: 0.5em;
+    color: rgb(199, 199, 199);
+    width: 60%;
+    border-bottom: 4px rgb(228, 228, 228) solid;
+    transition-duration: 0.5s;
+}
+
+div {
+    display: block;
+}
+
+img {
+    width: 30%;
+    height: 40vh;
+    margin: calc(10%/6);
+    object-fit: cover;
+    filter: grayscale(100%); 
+    transition-duration: 0.5s;    
+}
+
+h1:hover {
+    transform: scale(110%);
+    transform-origin: left;
+    color: rgb(30, 73, 122);
+    border-bottom: 4px rgba(30, 73, 122, 0) solid;
+    transition-duration: 0.5s;
+}
+
+img:hover {
+    filter: grayscale(0);
+    transform: scale(110%);
+    transition-duration: 0.5s;
+}

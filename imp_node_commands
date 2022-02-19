@@ -1,0 +1,21 @@
+------------------NPM codes------------------
+
+const inputText = process.argv[2] // Taking inputs in the git bash
+
+npm install ====>>>> for installing all dependencies inside package.json
+
+npm install <package_name>  ===>>>> for installing a specific package
+
+------------------Error resolutions------------------
+
+
+Error 1 ====>>>> SyntaxError: Cannot use import statement outside a module
+
+Solution 1 ====>>>> add -->> "type": "module" <<-- in the package.json file
+
+
+------------------GIT BASH Commands------------------
+
+const inputText = process.argv[2] // Taking inputs in the git bash
+
+ls - 

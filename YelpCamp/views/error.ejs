@@ -1,0 +1,23 @@
+<% layout('layouts/boilerplate') %>
+
+    <div class="row">
+        <div class="col-6 offset-3">
+            <div class="alert alert-danger" role="alert">
+                <h4 class="alert-heading"><%= err.message %> </h4>
+                <p>Oops... Something went wrong. Please try again!</p>
+                <hr>
+                
+
+                <p><b>
+                    <a class="text-danger fw-normal text-decoration-none" data-bs-toggle="collapse" href="#collapseErrorStack" role="button" aria-expanded="false" aria-controls="collapseExample">
+                      Show Error Stack
+                    </a>
+                </b></p>
+                  <div class="collapse" id="collapseErrorStack">
+                    <div class="card card-body">
+                      <%= err.stack %> 
+                    </div>
+                  </div>
+            </div>
+        </div>
+    </div>

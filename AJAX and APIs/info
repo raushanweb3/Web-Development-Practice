@@ -1,0 +1,27 @@
+-------------------AJAX-------------------
+Making requests (load,refresh, save data) without refreshing the page
+AJAX - Asynchronous Javascript And XML
+However, recently more and more people use JSON instead of XML and thus 
+AJAJ - Asynchronous Javascript And JSON 
+is the correct terminology. However, people generally mean AJAJ when the say AJAX
+
+-------------------Web API-------------------
+Making requests to particular http called end-points
+
+APIs generally return stuff in JSON format
+
+HTTP Status codes - https://api.cryptonator.com/api/ticker/btc-usd
+
+<<<<<<<<< Fetch API >>>>>>>>>
+- The newer Way of making requests via JS
+- Supports promises!
+- Not supported in Internet Explorer :(
+
+
+-------------------JSON-------------------
+JSON - Java Script Object Notation
+can be used with other languages as well like python, etc
+JSON validator - https://jsonformatter.curiousconcept.com/
+
+ JSON.parse (text, [, reviver]) - used to parse a JSON file into JS object
+ JSON.stringify (value[, replacer[, space]]) - used to parse a JS object into JSON

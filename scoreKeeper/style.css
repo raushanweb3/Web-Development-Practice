@@ -1,0 +1,42 @@
+body {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 1em;
+}
+
+.card {
+    width: 30em;
+}
+
+.winnerText {
+    color: green;
+}
+
+.loserText {
+    color: red;
+}
+
+#buttonsDiv {
+    display: flex;
+    flex-direction: row;
+}
+
+#selectionDiv {
+    margin-top: 1em;
+}
+
+#selectionDiv span{
+    font-weight: bold;
+}
+
+#playTo {
+    border-radius: 1000px;
+    text-align: center;
+    width: 8em;
+}
+
+#p1Button, #p2Button, #resetButton {
+    width: 33.3%;
+    border: none;
+}

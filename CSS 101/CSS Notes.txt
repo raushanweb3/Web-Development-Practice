@@ -1,0 +1,67 @@
+CSS = Cascading Style sheet
+
+CSS rules: almost everything in CSS follows this basic pattern:
+selector {
+    property: value;
+}
+
+Font availability on different machines - https://www.cssfontstack.com/
+
+* - selects everything
+
+element1, element2 {
+    this can also be another way of selecting multiple items    
+}
+
+ID selector
+- starts with #
+- a unique ID should be used only once not more
+
+class selector
+- starts with .
+- class can be applied to multiple elements
+
+Descendant selector
+- written as space between two elements
+- suppose we want to format all <a> tags that are inside <li> tags, we can do something like the following:
+li a { <!-- notice the space and NOT comma -->
+    your formatting goes here
+}
+
+Do look at attribute selectors
+
+Pseudo Classes
+- selection when a particular element is in a particular state like hover etc
+
+Order in which you declare formatting in CSS matters. Later one overrides the previous one
+
+However, Specificity is a different concept.
+
+Specificity 
+- It is how the browser decides which rules to apply when multiple rules could apply to the same element
+- It is a measure of how specific a given selector is. The more specific selector "WINS"
+- Order: Important declaration > Inline Style > ID selector > Class selector  
+- DON'T use important declaration and Inline style
+> Element selector
+- specifity calculator: https://specificity.keegan.st/
+
+Display property
+- Inline
+- Block
+- Inline Blockvv
+
+Flex
+
+CSS Tools: Reset CSS - to remove existing formatting (good thing to do) (source: https://meyerweb.com/eric/tools/css/reset/)
+
+BOOTSTRAP - world's most famous CSS framework
+- https://getbootstrap.com/
+- can link to CDN for including BOOTSTRAP - see this website - https://getbootstrap.com/docs/5.1/getting-started/introduction/#js
+- BOOTSTRAP also requires you to install a few things and the same can be taken from this website: https://getbootstrap.com/docs/5.1/getting-started/introduction/#js
+- grid system always works with container
+- In Grid system, each row has 12 equal columns
+
+Icons - 
+- bootstrap
+- material icon by google (https://fonts.google.com/icons?selected=Material+Icons+Outlined)
+

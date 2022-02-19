@@ -1,0 +1,23 @@
+<%- include('partials/head') %>
+
+<body>
+   <%- include('partials/navbar') %>
+
+    <!-- Our initial code -->
+    <h1>Welcome to the <%= name %> subreddit! </h1>
+    <h2>
+        <%= description %>
+    </h2>
+    <p>
+        <%= subscribers %> total subscribers
+    </p>
+    <hr>
+    <% for(let post of posts) { %>
+        <p>
+            <%= post.title %>
+        </p>
+        <img src="<%= post.img %>" alt="">
+        <% } %>
+
+            <script src="/js/bootstrap.min.js"></script>
+</body>

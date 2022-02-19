@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Score Keeper</title>
+
+    <!-- Including Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+
+
+
+
+
+
+
+    <!-- Bootstrap Card Starts-->
+
+    <div class="card">
+        <img src="https://images.unsplash.com/photo-1580420015418-dc24a2fa2b95?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80"
+            class="card-img-top" alt="ping pong image">
+        <div class="card-body">
+            <h5 class="card-title">Score Keeping Game</h5>
+
+            <h1><span id="p1Display">0</span> to <span id="p2Display">0</span></h1>
+            <span>Use the buttons below to keep score</span>
+
+            <div id="selectionDiv">
+                <span>Playing To</span>
+                <select name="" id="playTo">
+                    <option value="0">select</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                </select>
+            </div>
+
+
+
+        </div>
+    </div>
+    <div class="card" id="buttonsDiv">
+
+        <button id="p1Button" class="btn btn-primary playButton">+1 Player One</button>
+        <button id="p2Button" class="btn btn-primary playButton">+1 Player Two</button>
+        <button id="resetButton" class="btn btn-danger playButton">Reset</button>
+
+        <!-- <a href="#" class="btn btn-primary">Go somewhere</a>
+        <a href="#" class="btn btn-primary">Go somewhere</a>
+        <a href="#" class="btn btn-primary">Go somewhere</a> -->
+    </div>
+    </div>
+
+    <!-- Bootstrap Card Ends-->
+
+
+
+
+    <script src="app.js"></script>
+
+    <!-- Including Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

@@ -1,0 +1,18 @@
+Document Object Model (DOM):
+- It's a Javascript representation of webpage
+- It's the JS "window" into the contents of a webpage
+- It's a bunch of objects that you can interact with via JS
+
+Selecting Methods:
+- getElementById
+- getElementsByTagName
+- getElementsByClassName
+
+Better Way of selecting stuff:
+- querySelector('')
+- querySelectorAll()
+- One method to select anything
+
+- innerText
+- textContent - shows everything irrespective of hidden or not
+- innerHTML

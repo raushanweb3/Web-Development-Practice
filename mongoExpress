@@ -1,0 +1,31 @@
+''''''''''''''''''''''''Basic Setup''''''''''''''''''''''''
+
+> the basic setup looks something like the following:
+
+const express = require('express');
+const app = express();
+const path = require ('path');
+const mongoose = require('mongoose');
+
+main().catch(err => console.log('Mongo Connection error', err));
+
+async function main() {
+  await mongoose.connect('mongodb://localhost:27017/test');
+  console.log('Mongo connection open');
+}
+
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs');
+
+app.get('/dogs', (req,res) => {
+    res.send('Woof!');
+})
+
+app.listen(3000, () => {
+    console.log('Listening on PORT 3000')
+})
+
+
+''''''''''''''''''''''''Importing Models''''''''''''''''''''''''
+
+> We can import models from seperate files
