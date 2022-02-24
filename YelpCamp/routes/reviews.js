@@ -3,19 +3,9 @@ const router = express.Router({ mergeParams: true }); // otherwise we'd not have
 const Review = require('../models/review');
 const Campground = require('../models/campground');
 const catchAsync = require('../utils/catchAsync');
-const { reviewSchema } = require('../schemas')
+const { reviewSchema } = require('../schemas');
 const ExpressError = require('../utils/ExpressError');
-
-
-// for server side review form data validation using Joi
-const validateReview = (req, res, next) => {
-    const { error } = reviewSchema.validate(req.body);
-    if (error) {
-        throw new ExpressError(error.message, 400) //if only a single error.
-    } else {
-        next();
-    }
-}
+const { validateReview } = require('../middleware');
 
 // for adding reviews
 router.post('/', validateReview, catchAsync(async (req, res) => {
@@ -24,6 +14,7 @@ router.post('/', validateReview, catchAsync(async (req, res) => {
     campground.reviews.push(review);
     await review.save();
     await campground.save();
+    req.flash('success', 'Created new review!');
     res.redirect(`/campgrounds/${campground._id}`)
 }))
 
@@ -34,6 +25,7 @@ router.delete('/:reviewId', catchAsync(async (req, res) => {
     await Campground.findByIdAndUpdate(id, { $pull: { reviews: reviewId } })
 
     await Review.findByIdAndDelete(reviewId);
+    req.flash('success', 'Successfully deleted review!');
     res.redirect(`/campgrounds/${id}`)
 
 }))
