@@ -24,7 +24,6 @@ module.exports.createCampground = async (req, res, next) => {
     campground.image = req.files.map(f => ({ url: f.path, filename: f.filename })) // mapping over the files (req.files) received from form input to an object inside campground 
     campground.author = req.user._id; // for passing on user details to individual campground
     await campground.save();
-    console.log(campground) /////////////////DELELTETE///////////////////////
 
     //adding a flash message once the campground has been saved
     req.flash('success', 'Successfully created a new campground!')

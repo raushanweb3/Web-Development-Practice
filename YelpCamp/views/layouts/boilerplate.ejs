@@ -12,6 +12,13 @@
 
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
+    <!-- Including mapbox -->
+    <script src='https://api.mapbox.com/mapbox-gl-js/v2.7.0/mapbox-gl.js'></script>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v2.7.0/mapbox-gl.css' rel='stylesheet' />
+
+    <link rel="stylesheet" href="/stylesheets/app.css">
+
+
 </head>
 
 <body class="d-flex flex-column vh-100">
@@ -20,7 +27,7 @@
 
         <main class="container mt-5">
             <%- include('../partials/flash') %>
-            <%- body %>
+                <%- body %>
         </main>
 
         <%- include('../partials/footer') %>

@@ -22,10 +22,21 @@ const userRoutes = require('./routes/users');
 const campgroundRoutes = require('./routes/campgrounds');
 const reviewRoutes = require('./routes/reviews');
 
+// Security
+const mongoSanitize = require('express-mongo-sanitize'); // prohibit mongo injection
+const helmet = require('helmet');
+
+//////// Deploying on cloud server
+// const dbUrl = process.env.DB_URL; // if in production
+// const dbUrl = 'mongodb://localhost:27017/yelp-camp'; // if in development
+const dbUrl = process.env.DB_URL || 'mongodb://localhost:27017/yelp-camp'; // for heroku 
+
+const MongoStore = require('connect-mongo');
+
 // Mongoose setup
 main().catch(err => console.log(err));
 async function main() {
-    await mongoose.connect('mongodb://localhost:27017/yelp-camp');
+    await mongoose.connect(dbUrl);
 }
 
 const db = mongoose.connection;
@@ -40,15 +51,41 @@ app.engine('ejs', ejsMate);
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'))
 
+//defining secret for session and MongoStore
+const secret = process.env.SECRET || 'thisshouldbeabettersecret!'
+
+// using store to use session in mongoDB
+const store = MongoStore.create({
+    mongoUrl: dbUrl,
+    secret,
+    touchAfter: 24 * 60 * 60 // in seconds // lazy update - session updated only once every 24 hours
+});
+
+//looking for error in our session store
+store.on("error", function (e) {
+    console.log("SESSION STORE ERROR", e)
+});
+
 // using express session while passing a configuration and adding a cookie
 const sessionConfig = {
-    secret: 'thisshouldbeabettersecret!',
+    store,
+
+    // defining a name so that it isn't obvious for the 
+    // attacker on which cookie to target
+    name: 'session',
+    
+    secret,
     resave: false,
     saveUninitialized: true,
     cookie: { // adding fancier options for cookies
-        
+
         // security setup
-        httpOnly: true, // more details: 1) lec 489 and 2) https://owasp.org/www-community/HttpOnly
+        httpOnly: true,
+        // this says that our cookies set through the session are 
+        // only accessible via http and not via JS requests
+        // more details: 1) lec 489 and 2) https://owasp.org/www-community/HttpOnly 
+
+        // secure: true,  // says that our cookies can only be configured or changed with HTTPS and not HTTP
 
         // cookie expiry date and max age
         expires: Date.now() + 1000 * 60 * 60 * 24 * 7, //date.now gives values in miliseconds,
@@ -61,9 +98,70 @@ app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname, 'public'))); // Using the public directory for static
 
+app.use(mongoSanitize()); // mongo security conscern
+
 // using flash for showing popup messages like thank you for registering etc
 app.use(flash());
 
+// Using helmet
+app.use(
+    helmet({
+        contentSecurityPolicy: false, // configured for this below
+        crossOriginEmbedderPolicy: false,
+        crossOriginOpenerPolicy: false,
+        crossOriginResourcePolicy: false,
+        originAgentCluster: false,
+    })
+);
+
+// contentSecurityPolicy configuration
+
+//defining array lists of URIs to be used
+const scriptSrcUrls = [
+    "https://stackpath.bootstrapcdn.com/",
+    "https://api.tiles.mapbox.com/",
+    "https://api.mapbox.com/",
+    "https://kit.fontawesome.com/",
+    "https://cdnjs.cloudflare.com/",
+    "https://cdn.jsdelivr.net",
+];
+const styleSrcUrls = [
+    "https://kit-free.fontawesome.com/",
+    "https://stackpath.bootstrapcdn.com/",
+    "https://api.mapbox.com/",
+    "https://api.tiles.mapbox.com/",
+    "https://fonts.googleapis.com/",
+    "https://use.fontawesome.com/",
+    "https://cdn.jsdelivr.net",
+];
+const connectSrcUrls = [
+    "https://api.mapbox.com/",
+    "https://a.tiles.mapbox.com/",
+    "https://b.tiles.mapbox.com/",
+    "https://events.mapbox.com/",
+];
+
+const fontSrcUrls = ["https://fonts.gstatic.com",];
+app.use(
+    helmet.contentSecurityPolicy({
+        directives: {
+            defaultSrc: [],
+            connectSrc: ["'self'", ...connectSrcUrls],
+            scriptSrc: ["'unsafe-inline'", "'self'", ...scriptSrcUrls],
+            styleSrc: ["'self'", "'unsafe-inline'", ...styleSrcUrls],
+            workerSrc: ["'self'", "blob:"],
+            objectSrc: [],
+            imgSrc: [
+                "'self'",
+                "blob:",
+                "data:",
+                "https://res.cloudinary.com/dpebp7cag/", //SHOULD MATCH YOUR CLOUDINARY ACCOUNT! 
+                "https://images.unsplash.com/",
+            ],
+            fontSrc: ["'self'", ...fontSrcUrls],
+        },
+    })
+);
 
 //////////////////////////////////////////////////////////////
 
@@ -81,7 +179,7 @@ passport.deserializeUser(User.deserializeUser()); // deserializeUser() Generates
 // defining middleware for flash
 // define before any of the route handlers
 // and after initializing use passport related commands
-app.use((req,res,next) => {
+app.use((req, res, next) => {
     // console.log(req.session);
     res.locals.currentUser = req.user; // coming from passports
     // console.log(res.locals.currentUser)
@@ -124,6 +222,8 @@ app.use((err, req, res, next) => {
     // res.send('Oh Boy, something went wrong!')
 })
 
-app.listen(3000, () => {
-    console.log('Connected to Yelp Camp via Port 3000!!');
+const port = process.env.PORT || 3000;
+
+app.listen(port, () => {
+    console.log(`Connected to Yelp Camp via port - ${port}`);
 })

@@ -1,0 +1,10 @@
+#cluster-map {
+    margin: 0;
+    width: 100%;
+    height: 400px;
+    align-items: center;
+}
+
+#map {
+    height: 250px;
+}
